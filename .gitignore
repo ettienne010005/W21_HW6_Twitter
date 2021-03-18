@@ -1,3 +1,4 @@
 __pycache__
 secrets.py
 twitter_cache.json
+twitter_cache_ec.json
