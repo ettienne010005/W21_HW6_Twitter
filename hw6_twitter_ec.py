@@ -199,16 +199,17 @@ def find_top3_cooccurring_hashtag(tweet_data, hashtag_to_ignore):
     for t in tweets:
         if len(t['entities']['hashtags']) is not 0: 
             for h in t['entities']['hashtags']:
-                if h['text'] != hashtag_string:
+                if (h['text'] != hashtag_string) and (h['text'].lower() != hashtag_string.lower()):
                     if h['text'] not in hash_dict:
                         hash_dict[h['text']] = 1
                     else:
                         hash_dict[h['text']] = hash_dict[h['text']] + 1
-    
     if  len(hash_dict) != 0:
         for i in range(3):
             top3_list.append(max(hash_dict.items(), key=operator.itemgetter(1))[0])
             del hash_dict[top3_list[i]]
+            if len(hash_dict) < 1:
+                break
     
     return top3_list
 
@@ -236,4 +237,4 @@ if __name__ == "__main__":
             print(f"There are no hashtags for {hashtag} or no top three co-occurring hashtags")
         else:
             for i in range(len(top3_list)):
-                print(f"The NO{i+1} co-occurring hashtag with {hashtag} is {top3_list[i]}")
+                print(f"The NO{i+1} co-occurring hashtag with {hashtag} is #{top3_list[i]}")

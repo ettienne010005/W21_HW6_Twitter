@@ -194,7 +194,7 @@ def find_most_common_cooccurring_hashtag(tweet_data, hashtag_to_ignore):
     for t in tweets:
         if len(t['entities']['hashtags']) is not 0: 
             for h in t['entities']['hashtags']:
-                if h['text'] != hashtag_string:
+                if (h['text'] != hashtag_string) and (h['text'].lower() != hashtag_string.lower()):
                     if h['text'] not in hash_dict:
                         hash_dict[h['text']] = 1
                     else:
@@ -222,9 +222,10 @@ if __name__ == "__main__":
     CACHE_DICT = open_cache()
 
     baseurl = "https://api.twitter.com/1.1/search/tweets.json"
-    hashtag = "#MarchMadness2021"
+    # hashtag = "#MarchMadness2021"
+    hashtag = "#2020election"
     count = 100
 
     tweet_data = make_request_with_cache(baseurl, hashtag, count)
     most_common_cooccurring_hashtag = find_most_common_cooccurring_hashtag(tweet_data, hashtag)
-    print("The most commonly cooccurring hashtag with {} is {}.".format(hashtag, most_common_cooccurring_hashtag))
+    print("The most commonly cooccurring hashtag with {} is #{}.".format(hashtag, most_common_cooccurring_hashtag))
