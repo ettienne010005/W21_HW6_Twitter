@@ -222,8 +222,8 @@ if __name__ == "__main__":
     CACHE_DICT = open_cache()
 
     baseurl = "https://api.twitter.com/1.1/search/tweets.json"
-    # hashtag = "#MarchMadness2021"
-    hashtag = "#2020election"
+    hashtag = "#MarchMadness2021"
+    # hashtag = "#2020election"
     count = 100
 
     tweet_data = make_request_with_cache(baseurl, hashtag, count)
