@@ -101,7 +101,7 @@ def construct_unique_key(baseurl, params):
     param_list = []
     for i in params.keys():
         param_list.append(f'{i}_{params[i]}')
-    # param_list.sort()
+    param_list.sort()
     unique_key = baseurl + '_' +  '_'.join(param_list)
     return unique_key
 

@@ -101,7 +101,7 @@ def construct_unique_key(baseurl, params):
     param_list = []
     for i in params.keys():
         param_list.append(f'{i}_{params[i]}')
-    # param_list.sort()
+    param_list.sort()
     unique_key = baseurl + '_' +  '_'.join(param_list)
     return unique_key
 
@@ -156,13 +156,15 @@ def make_request_with_cache(baseurl, hashtag, count):
         JSON
     '''
     #TODO Implement function
+    CACHE_DICT = open_cache()
+
     param_dict = {'q':hashtag, 'count': str(count)}
     key = construct_unique_key(baseurl,param_dict)
     if key in CACHE_DICT:
-        print("fetching cached data",key)
+        print("fetching cached data")
         return CACHE_DICT[key]
     else:
-        print("making new request",key)
+        print("making new request")
         CACHE_DICT[key] = make_request(baseurl,param_dict)
         save_cache(CACHE_DICT)
         return CACHE_DICT[key]
@@ -200,7 +202,7 @@ def find_most_common_cooccurring_hashtag(tweet_data, hashtag_to_ignore):
                     else:
                         hash_dict[h['text']] = hash_dict[h['text']] + 1
     # print(hash_dict)
-    return max(hash_dict.items(), key=operator.itemgetter(1))[0]
+    return max(hash_dict.items(), key=operator.itemgetter(1))[0].lower()
 
     ''' Hint: In case you're confused about the hashtag_to_ignore 
     parameter, we want to ignore the hashtag we queried because it would 
